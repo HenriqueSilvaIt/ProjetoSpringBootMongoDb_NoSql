@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MongoDbSpringBootProjetctApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MongoDbSpringBootProjetctApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MongoDbSpringBootProjetctApplication.class, args);
+    }
 
 }
