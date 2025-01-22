@@ -1,11 +1,17 @@
 package com.hen.mongodb_springboot_projetct.domain;
 
+import jakarta.persistence.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Document(collection="user") // Para dizer quessa classe corresponde a uma coleção do NOSQL MONGODb
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
+
+    @Id // Chave primária
     private String id;
     private String name;
     private String email;
