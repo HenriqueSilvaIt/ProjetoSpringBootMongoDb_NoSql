@@ -5,11 +5,10 @@ import com.hen.mongodb_springboot_projetct.dto.UserDTO;
 import com.hen.mongodb_springboot_projetct.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,10 +34,29 @@ public class UserResource {
         //que vai retornar ok o HTTP se for tudo com sucesso
     }
 
-    @RequestMapping(value="/{id}")
+    // Retorna usuário por Id
+    @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public ResponseEntity<UserDTO> findById(@PathVariable String id) { //Response Entity retorna resposta HTTP já formatada com possíveis erros
         User user = userService.findById(id);
         return ResponseEntity.ok().body( new UserDTO(user));
+
+    }
+
+    // Insere dados na tabela
+    @PostMapping
+    //@RequestMapping(method=RequestMethod.POST)
+    public ResponseEntity<Void> insert(@RequestBody UserDTO objDto) { //Response Entity retorna resposta HTTP já formatada com possíveis erros
+       User obj = userService.fromDTO(objDto); // Converte objeto DTO para USER
+       obj = userService.insert(obj); // inserindo objeto no banco de dados
+
+        // Retorna uma resposta vazia, porém vai ter um cabeçalho com URL
+        // do novo recurso criado, para fazer isso utiliza o objeto URI abaixo
+       URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+       return ResponseEntity.created(uri).build();
+       // crated retorna o código http 201 que é código que representa
+        // que foi criado um novo recurso
+        // no postman o corpo da requisição vai vir vazia mas o header vai trazer
+        // a localização (end oint) com o id do usário/valor que foi criado
 
     }
 

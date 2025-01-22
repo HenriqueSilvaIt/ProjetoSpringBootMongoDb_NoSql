@@ -1,6 +1,7 @@
 package com.hen.mongodb_springboot_projetct.services;
 
 import com.hen.mongodb_springboot_projetct.domain.User;
+import com.hen.mongodb_springboot_projetct.dto.UserDTO;
 import com.hen.mongodb_springboot_projetct.repository.UserRepository;
 import com.hen.mongodb_springboot_projetct.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,15 @@ public class UserService {
     public User findById(String id) {
         Optional<User> obj = userRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado")); // isso quer dizer que  o usuário foi encontrado só retornar
+    }
+
+    //  Inserir usuário na tabela
+    public User insert(User user) {
+        return userRepository.insert(user);
+    }
+
+    //Retorna o usuário da classe DTO (classe que deixa os dados consolidado)
+    public User fromDTO(UserDTO userDTO) {
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 }
