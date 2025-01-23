@@ -2,6 +2,7 @@ package com.hen.mongodb_springboot_projetct.config;
 
 import com.hen.mongodb_springboot_projetct.domain.Post;
 import com.hen.mongodb_springboot_projetct.domain.User;
+import com.hen.mongodb_springboot_projetct.dto.AuthorDTO;
 import com.hen.mongodb_springboot_projetct.repository.PostRepository;
 import com.hen.mongodb_springboot_projetct.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +32,31 @@ public class Instatiation implements CommandLineRunner {
         userRepository.deleteAll(); // vai limpar a coleção de usuários no mongodb
         postRepository.deleteAll();
 
+        // Criação de usuários
         User maria = new User(null, "Maria Brown", "maria@gmail.com");
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post post1 = new Post(null, maria, sdf.parse("21/03/2018"), "Partiu Viagem", "Vou viajar para São Paulo!");
-        Post post2 = new Post(null, maria, sdf.parse("23/04/2018"), "Bom dia", "Acordei agora");
+        //Salvando usuário
+        userRepository.saveAll(Arrays.asList(maria, alex, bob)); // primeiro salvamos o
+        // usuário no banco por isso o  save tem que estar antes do post
+        // pois depois vamos associar esse id que foi criado no banco
+        // ao AuthorDTO
 
-        userRepository.saveAll(Arrays.asList(maria, alex, bob));
+        // Criação de post
+        Post post1 = new Post(null, new AuthorDTO(maria), sdf.parse("21/03/2018"), "Partiu Viagem", "Vou viajar para São Paulo!");
+        Post post2 = new Post(null, new AuthorDTO(maria), sdf.parse("23/04/2018"), "Bom dia", "Acordei agora");
+        // no caso acima de vez fazermos a injeção de dependencia de AuthorDTO
+        // nós insciamos o objeto AuthoDTO e pasamos o usuário
+        // como argumento, pois esse construtor espera um objeto como argumento
+
+        // Salvando post
         postRepository.saveAll(Arrays.asList(post1, post2));
 
+        // Lista de posts da maria
+        maria.getPosts().addAll(Arrays.asList(post1, post2));
+
+        // salvando postagem da maria
+        userRepository.save(maria);
     }
 }

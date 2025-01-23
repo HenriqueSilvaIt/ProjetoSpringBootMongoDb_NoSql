@@ -1,5 +1,6 @@
 package com.hen.mongodb_springboot_projetct.domain;
 
+import com.hen.mongodb_springboot_projetct.dto.AuthorDTO;
 import jakarta.persistence.Id;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ public class Post implements Serializable {
 
     @Id
     private String id;
-    private User autor;
+    private AuthorDTO author;
     private Date date;
     private String title;
     private String body; // corpo do post
@@ -19,8 +20,8 @@ public class Post implements Serializable {
     public Post( ) {
 
     }
-    public Post(String id, User autor, Date date, String title, String body) {
-        this.autor = autor;
+    public Post(String id, AuthorDTO author, Date date, String title, String body) {
+        this.author = author;
         this.id = id;
         this.date = date;
         this.title = title;
@@ -34,11 +35,11 @@ public class Post implements Serializable {
     public void setId(String id) {
         this.id =  id;
     }
-    public User getAutor() {
-        return autor;
+    public AuthorDTO getauthor() {
+        return author;
     }
-    public void setAutor(User autor) {
-        this.autor = autor;
+    public void setauthor(AuthorDTO author) {
+        this.author = author;
     }
     public Date getDate() {
         return date;

@@ -1,9 +1,12 @@
 package com.hen.mongodb_springboot_projetct.domain;
 
 import jakarta.persistence.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Document(collection="user") // Para dizer quessa classe corresponde a uma coleção do NOSQL MONGODb
@@ -15,6 +18,14 @@ public class User implements Serializable {
     private String id;
     private String name;
     private String email;
+
+    @DBRef(lazy = true) // DBRef é utilizado para referenciar atributos no banco
+    // em um agregado, o lazy = true
+    // é para que o objeto abaixo só vai ser instanciado se eu acessar ele
+    // então quando eu chamar o agregado do objeto usuário
+    // ele n vai trazer direto a referencia do post
+    private List<Post> posts = new ArrayList<>();
+    // list é uma interface e o ArrayList é uma implementação possivel dessa lista
 
     // Construtores
 
@@ -46,6 +57,10 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+    public List<Post> getPosts() {
+        return posts;
+    }
+
     //hashCode
 
     @Override
