@@ -69,4 +69,21 @@ public class UserResource {
 
     }
 
+    // Atualizar - Update
+
+    @PutMapping(value="/{id}")
+    //@RequestMapping(method=RequestMethod.POST)
+    public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable String id) { //Response Entity retorna resposta HTTP já formatada com possíveis erros
+
+        User obj = userService.fromDTO(objDto); // Converte objeto DTO para USER
+        obj.setId(id);
+        obj = userService.update(obj); // inserindo objeto no banco de dados
+
+        // Retorna uma resposta vazia, porém vai ter um cabeçalho com URL
+        // do novo recurso criado, para fazer isso utiliza o objeto URI abaixo
+        return ResponseEntity.noContent().build();
+
+
+    }
+
 }

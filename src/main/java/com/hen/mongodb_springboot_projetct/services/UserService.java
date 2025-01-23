@@ -41,6 +41,23 @@ public class UserService {
         findById(id); // verifica se o id existe se não existir já lança exceção
         userRepository.deleteById(id); // deleta
     }
+    
+    // Update
+    public User update( User user) { //esse objeto user vai ser os dados que usuário
+        // envia na requisição, vamos pegar o objeto do banco e altera
+        // ele com os dados que usuário mando na requisição e depois salvar ele
+        User newObj = findById(user.getId());
+        updateDate(newObj, user);// funçaõ resposaveis por copiar os dados enviados
+        // pelo usuário para o objeto do banco de daddos
+        // só criar o método abaixo e fazer a operação
+        return userRepository.save(newObj);
+
+    }
+
+    private void updateDate(User newObj, User user) {
+        newObj.setName(user.getName());
+        newObj.setEmail(user.getEmail());
+    }
 
     //Retorna o usuário da classe DTO (classe que deixa os dados consolidado)
     public User fromDTO(UserDTO userDTO) {
