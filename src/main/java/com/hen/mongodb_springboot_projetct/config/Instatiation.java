@@ -46,14 +46,14 @@ public class Instatiation implements CommandLineRunner {
 
         // Criação de post
         Post post1 = new Post(null, new AuthorDTO(maria), sdf.parse("21/03/2018"), "Partiu Viagem", "Vou viajar para São Paulo!");
-        Post post2 = new Post(null, new AuthorDTO(maria), sdf.parse("23/04/2018"), "Bom dia", "Acordei agora");
+        Post post2 = new Post(null, new AuthorDTO(maria), sdf.parse("23/04/2025"), "Bom dia", "Acordei agora");
         // no caso acima de vez fazermos a injeção de dependencia de AuthorDTO
         // nós insciamos o objeto AuthoDTO e pasamos o usuário
         // como argumento, pois esse construtor espera um objeto como argumento
 
         // Comentários antes de salva post
         CommentDTO cm1 = new CommentDTO("Boa viagem mano", sdf.parse("21/03/2018"), new AuthorDTO(maria));
-        CommentDTO cm2 = new CommentDTO("Aproveite", sdf.parse("22/04/2024"), new AuthorDTO(bob));
+        CommentDTO cm2 = new CommentDTO("Aproveite", sdf.parse("22/03/2018"), new AuthorDTO(bob));
         CommentDTO cm3 = new CommentDTO("Tenha um ótimo dia", sdf.parse("24/03/2018"), new AuthorDTO(alex));
 
         //Associando post aos comentários

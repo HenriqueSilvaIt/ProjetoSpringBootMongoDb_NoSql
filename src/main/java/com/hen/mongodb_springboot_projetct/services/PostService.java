@@ -6,6 +6,7 @@ import com.hen.mongodb_springboot_projetct.services.exceptions.ObjectNotFoundExc
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,10 @@ public class PostService {
         // ignorecase tira o case sentitive
     }
 
-
+    // Método de consulta por texto no agregado
+    public List<Post> fullSearch(String text, Date minDate, Date maxDate) {
+        maxDate = new Date(maxDate.getTime() + 24 * 60 *60 * 1000);// 24hrs em milisegundo para pegar á 00:00 do dia seguinte
+      return userRepository.fullSearch(text, minDate, maxDate);
+    }
 
 }
