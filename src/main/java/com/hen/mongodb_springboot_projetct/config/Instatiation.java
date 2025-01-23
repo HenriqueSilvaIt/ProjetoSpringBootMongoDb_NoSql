@@ -3,6 +3,7 @@ package com.hen.mongodb_springboot_projetct.config;
 import com.hen.mongodb_springboot_projetct.domain.Post;
 import com.hen.mongodb_springboot_projetct.domain.User;
 import com.hen.mongodb_springboot_projetct.dto.AuthorDTO;
+import com.hen.mongodb_springboot_projetct.dto.CommentDTO;
 import com.hen.mongodb_springboot_projetct.repository.PostRepository;
 import com.hen.mongodb_springboot_projetct.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,14 @@ public class Instatiation implements CommandLineRunner {
         // nós insciamos o objeto AuthoDTO e pasamos o usuário
         // como argumento, pois esse construtor espera um objeto como argumento
 
+        // Comentários antes de salva post
+        CommentDTO cm1 = new CommentDTO("Boa viagem mano", sdf.parse("21/03/2018"), new AuthorDTO(maria));
+        CommentDTO cm2 = new CommentDTO("Aproveite", sdf.parse("22/04/2024"), new AuthorDTO(bob));
+        CommentDTO cm3 = new CommentDTO("Tenha um ótimo dia", sdf.parse("24/03/2018"), new AuthorDTO(alex));
+
+        //Associando post aos comentários
+        post1.getComments().addAll(Arrays.asList(cm1,cm2));
+        post2.getComments().addAll(Arrays.asList(cm3));
         // Salvando post
         postRepository.saveAll(Arrays.asList(post1, post2));
 

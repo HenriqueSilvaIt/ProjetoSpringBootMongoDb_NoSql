@@ -1,10 +1,13 @@
 package com.hen.mongodb_springboot_projetct.domain;
 
 import com.hen.mongodb_springboot_projetct.dto.AuthorDTO;
+import com.hen.mongodb_springboot_projetct.dto.CommentDTO;
 import jakarta.persistence.Id;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Post implements Serializable {
@@ -16,6 +19,12 @@ public class Post implements Serializable {
     private Date date;
     private String title;
     private String body; // corpo do post
+
+    // Associando comentários
+
+    private List<CommentDTO> comments = new ArrayList<> ();
+
+
 
     public Post( ) {
 
@@ -52,6 +61,9 @@ public class Post implements Serializable {
     }
     public void setTitle(String title) {
         this.title = title;
+    }
+    public List<CommentDTO> getComments() {
+        return comments;
     }
     public String getBody() {
         return body;

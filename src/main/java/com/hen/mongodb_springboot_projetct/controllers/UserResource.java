@@ -1,5 +1,6 @@
 package com.hen.mongodb_springboot_projetct.controllers;
 
+import com.hen.mongodb_springboot_projetct.domain.Post;
 import com.hen.mongodb_springboot_projetct.domain.User;
 import com.hen.mongodb_springboot_projetct.dto.UserDTO;
 import com.hen.mongodb_springboot_projetct.services.UserService;
@@ -83,7 +84,17 @@ public class UserResource {
         // do novo recurso criado, para fazer isso utiliza o objeto URI abaixo
         return ResponseEntity.noContent().build();
 
-
     }
+
+    // Pega o post na api pelo id do usuário
+    @RequestMapping(value="/{id}/posts", method=RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) { //Response Entity retorna resposta HTTP já formatada com possíveis erros
+        User obj = userService.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());// body é onde definimos qual
+        // vai ser o corpo da reposta, e o .ok() quer dizer
+        //que vai retornar ok o HTTP se for tudo com sucesso
+    }
+    // test:
+    // http://localhost:8080/users/6792396be4402a6ccd724ce4/posts
 
 }
