@@ -24,10 +24,18 @@ public class PostService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado")); // isso quer dizer que  o usuário foi encontrado só retornar
     }
 
-    // Método de buscsa FindByTitle
+    /*// Método de buscsa FindByTitle
     public List<Post> findByTitle(String text) {
         return userRepository.findByTitleContainingIgnoreCase(text);
         // ignorecase tira o case sentitive
+    }*/
+
+    // Método de buscsa FindByTitle
+    public List<Post> encontreTitulo(String text) {
+        return userRepository.findByTitleContainingIgnoreCase(text);
+        // ignorecase tira o case sentitive
     }
+
+
 
 }
