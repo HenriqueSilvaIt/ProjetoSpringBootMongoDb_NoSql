@@ -6,6 +6,7 @@ import com.hen.mongodb_springboot_projetct.services.exceptions.ObjectNotFoundExc
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,12 @@ public class PostService {
     public Post findById(String id) {
         Optional<Post> obj = userRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado")); // isso quer dizer que  o usuário foi encontrado só retornar
+    }
+
+    // Método de buscsa FindByTitle
+    public List<Post> findByTitle(String text) {
+        return userRepository.findByTitleContainingIgnoreCase(text);
+        // ignorecase tira o case sentitive
     }
 
 }
