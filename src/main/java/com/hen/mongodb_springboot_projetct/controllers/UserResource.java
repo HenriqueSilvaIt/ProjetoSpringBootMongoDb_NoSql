@@ -60,4 +60,13 @@ public class UserResource {
 
     }
 
+    //Deleta usuário por id
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    public ResponseEntity<UserDTO> delete(@PathVariable String id) { //Response Entity retorna resposta HTTP já formatada com possíveis erros
+        userService.delete(id);
+        return ResponseEntity.noContent().build(); // como é uma operação
+        // que n tem que retornar nada, só delet, utiliza o no content
+
+    }
+
 }

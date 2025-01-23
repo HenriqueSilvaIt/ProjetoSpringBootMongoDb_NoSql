@@ -36,6 +36,12 @@ public class UserService {
         return userRepository.insert(user);
     }
 
+    // Delet usuário
+    public void delete(String id) {
+        findById(id); // verifica se o id existe se não existir já lança exceção
+        userRepository.deleteById(id); // deleta
+    }
+
     //Retorna o usuário da classe DTO (classe que deixa os dados consolidado)
     public User fromDTO(UserDTO userDTO) {
         return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
