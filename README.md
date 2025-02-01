@@ -1,38 +1,33 @@
-# Postagem e Comentários
-[![NPM](https://img.shields.io/badge/licence-MIT-blue)](https://github.com/HenriqueSilvaIt/ProjectListaDeJogosJPA/blob/main/LICENSE) 
+# Rede Social
+[![NPM](https://img.shields.io/badge/licence-MIT-blue)](https://github.com/HenriqueSilvaIt/ProjetoSpringBootMongoDb_NoSql/blob/main/LICENSE) 
 
 # Sobre o projeto
 
-
-Postagem e comentários é uma aplicação back-end criada em uma aula da [DevSuperior](https://devsuperior.com "Site da DevSuperior").
-
-A aplicação Postagem e comentários é uma aplicação back-end que funciona como uma rede-social porém trabalha somente com
-postagem e comentários.
-
-A aplicação trabalha com banco de dados NoSQl PostGree, lingugagem orientada a agregados.
-
-
-## Como utilizar a aplicação:
-
-### Consultar todos os jogos
-
-https://projectlistadejogosjpa-production.up.railway.app/games
-
-### Consulta de jogos por id
-
-https://projectlistadejogosjpa-production.up.railway.app/games/1
-
-### Consulta de categoria de jogos
-
-https://projectlistadejogosjpa-production.up.railway.app/lists
-
-### Consulta de jogos por categoria
-
-https://projectlistadejogosjpa-production.up.railway.app/lists/1/games
-https://projectlistadejogosjpa-production.up.railway.app/lists/2/games
+Rede Social é uma aplicação back-end criada em uma aula da [DevSuperior](https://devsuperior.com "Site da DevSuperior").
+É uma aplicação back-end que funciona como uma rede-social porém trabalha somente com
+postagem e comentários e não com chats.
+A aplicação utiliza o banco de dados NoSQl MongoDb, lingugagem orientada a agregados.
 
 ## Modelo Conceitual
-![Modelo Domínio](https://raw.githubusercontent.com/devsuperior/java-spring-dslist/main/resources/dslist-model.png)
+![Modelo Domínio](https://github.com/HenriqueSilvaIt/Assets/blob/main/MongoDbProject/Modelo%20Conceitual.png) 
+
+### Relacionamento entre objetos
+
+![Objects](https://github.com/HenriqueSilvaIt/Assets/blob/main/MongoDbProject/Relacionamento%20entre%20objetos.png)
+
+## Como funciona aplicação:
+
+### Agregados do banco de dados
+
+![Banco](https://github.com/HenriqueSilvaIt/Assets/blob/main/MongoDbProject/Banco%20MongoD.png)
+
+### Usuários da rede
+
+![Users](https://github.com/HenriqueSilvaIt/Assets/blob/main/MongoDbProject/Agregado%20usu%C3%A1rio.png)
+
+### Postagens e comentários
+
+![Post](https://github.com/HenriqueSilvaIt/Assets/blob/main/MongoDbProject/postagem%20com%20coment%C3%A1rios.png)
 
 # Tecnologias utilizadas
 
@@ -40,22 +35,21 @@ https://projectlistadejogosjpa-production.up.railway.app/lists/2/games
 - Spring Boot
 - JPA / Hibernate
 - Maven
-
-## Implantação em produção
-- Back end: Raiywail
-- Banco de dados: Postgresql
+- Banco de dados: MongoDb
 
 # Como executar o projeto
 
-## Back end
 Pré-requisitos: Java 17 +
 
 ```bash
 # clonar repositório
-git clone https://github.com/HenriqueSilvaIt/ProjectListaDeJogosJPA.git
+git clone https://github.com/HenriqueSilvaIt/ProjetoSpringBootMongoDb_NoSql.git
 
 # entrar na pasta do projeto back end
-cd DslistApplication
+cd ProjetoSpringBootMongoDb_NoSql
+
+# Conectar ao mongodb
+- mongod --bind_ip seuip
 
 # executar o projeto
 ./mvnw spring-boot:run
@@ -65,8 +59,9 @@ cd DslistApplication
 
 ### Plug-in Maven
 
-```xml
- <dependency>
+ <dependencies>
+  
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -82,45 +77,30 @@ cd DslistApplication
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
-```
-### application.properties
-```
-spring.profiles.active=${APP_PROFILE:test}
-spring.jpa.open-in-view=false
-
-cors.origins=${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
+    </dependencies>
 ```
 ### application-prod.properties
 
 ```
-spring.datasource.url=${DB_URL}
-spring.datasource.username=${DB_USERNAME}
-spring.datasource.password=${DB_PASSWORD}
-
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-spring.jpa.hibernate.ddl-auto=none
-```
-### application-dev.properties
-
-```
-#spring.jpa.properties.jakarta.persistence.schema-generation.create-source=metadata
-#spring.jpa.properties.jakarta.persistence.schema-generation.scripts.action=create
-#spring.jpa.properties.jakarta.persistence.schema-generation.scripts.create-target=create.sql
-#spring.jpa.properties.hibernate.hbm2ddl.delimiter=;
-
-spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
-spring.datasource.username=postgres
-spring.datasource.password=1234
-
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-spring.jpa.hibernate.ddl-auto=none
+spring.data.mongodb.host=seuhost
+spring.data.mongodb.port=27017
+spring.data.mongodb.database=workshop_mongo
 ```
 
 # Autor
